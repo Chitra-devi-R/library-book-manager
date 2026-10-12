@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Library Book Manager</title>
+  <style>
+    body { font-family: Arial; max-width: 700px; margin: 40px auto; }
+    input, button { padding: 6px; margin: 2px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>Library Book Manager</h1>
+  <form action="/add" method="post">
+    <input name="title" placeholder="Book title" required>
+    <input name="author" placeholder="Author" required>
+    <button type="submit">Add Book</button>
+  </form>
+  <table>
+    <tr><th>ID</th><th>Title</th><th>Author</th></tr>
+    <tr th:each="b : ${books}">
+      <td th:text="${b.id}"></td>
+      <td th:text="${b.title}"></td>
+      <td th:text="${b.author}"></td>
+    </tr>
+  </table>
+</body>
+</html>
