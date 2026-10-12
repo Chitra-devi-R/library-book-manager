@@ -11,8 +11,12 @@
   </style>
 </head>
 <body>
-  <!-- CHANGED: heading (this line causes the merge conflict later) -->
-  <h1>Library Book Manager - Manage</h1>
+  <h1>Library Book Manager</h1>
+
+  <form action="/" method="get">
+    <input name="q" th:value="${q}" placeholder="Search by title">
+    <button type="submit">Search</button>
+  </form>
 
   <form action="/add" method="post">
     <input name="title" placeholder="Book title" required>
@@ -21,13 +25,11 @@
   </form>
 
   <table>
-    <!-- CHANGED: added Action column -->
     <tr><th>ID</th><th>Title</th><th>Author</th><th>Action</th></tr>
     <tr th:each="b : ${books}">
       <td th:text="${b.id}"></td>
       <td th:text="${b.title}"></td>
       <td th:text="${b.author}"></td>
-      <!-- CHANGED: added Delete button -->
       <td>
         <form th:action="@{/delete/{id}(id=${b.id})}" method="post">
           <button type="submit">Delete</button>

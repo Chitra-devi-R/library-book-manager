@@ -13,8 +13,10 @@ public class BookController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("books", repo.findAll());
+    public String home(@RequestParam(required = false) String q, Model model) {
+        model.addAttribute("books",
+            (q == null || q.isBlank()) ? repo.findAll() : repo.findByTitleContainingIgnoreCase(q));
+        model.addAttribute("q", q == null ? "" : q);
         return "index";
     }
 
@@ -27,6 +29,8 @@ public class BookController {
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) { repo.deleteById(id); return "redirect:/"; 
+    public String delete(@PathVariable Long id) {
+        repo.deleteById(id);
+        return "redirect:/";
     }
 }
